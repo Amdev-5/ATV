@@ -7,7 +7,6 @@ st.set_page_config(
     layout="wide"
 )
 
-import asyncio
 from agent import MaintenanceAgent
 from knowledge_base import ATVKnowledgeBase
 import plotly.express as px
@@ -92,8 +91,7 @@ if prompt := st.chat_input("Ask about ATV maintenance..."):
     # Get bot response
     with st.chat_message("assistant"):
         with st.spinner("Thinking..."):
-            # Run async response in sync context
-            response = asyncio.run(agent.get_response(prompt, atv_model))
+            response = agent.get_response(prompt, atv_model)
             st.markdown(response["response"])
             with st.expander("View Context"):
                 st.json(response["context"])
